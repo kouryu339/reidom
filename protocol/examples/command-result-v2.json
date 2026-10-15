@@ -1,0 +1,15 @@
+{
+  "schema": "reidom-command-result/v2",
+  "command_id": "cmd-demo-move-1",
+  "accepted": true,
+  "duplicate": false,
+  "before_revision": 3,
+  "revision": 4,
+  "affected_ids": ["note:1"],
+  "summary": "Moved 1 note by 0.125 beats.",
+  "diff": {
+    "notes_moved": 1
+  },
+  "undo_group_id": "undo-demo-move-1",
+  "error": null
+}

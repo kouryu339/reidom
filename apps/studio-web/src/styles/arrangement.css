@@ -1,0 +1,320 @@
+/* Arrangement-first DAW workspace. The piano roll is opened only for clip detail. */
+.daw-shell {
+  grid-template:
+    "menu menu" 36px
+    "ctrl ctrl" 50px
+    "center right" minmax(0, 1fr) / minmax(760px, 1fr) 320px;
+}
+
+.left-zone,
+#toggle-browser,
+.project-header,
+.global-tracks,
+.bottom-dock,
+.controller-lanes {
+  display: none !important;
+}
+
+.center-workspace,
+.center-workspace[data-workspace="editor"] {
+  grid-template-rows: minmax(0, 1fr);
+  gap: 0;
+  padding: 6px;
+}
+
+.arrangement-panel {
+  grid-template-rows: 32px minmax(0, 1fr);
+}
+
+.arrangement-grid {
+  grid-auto-rows: 72px;
+  align-content: start;
+  background: #091017;
+}
+
+.arrangement-row {
+  min-height: 72px;
+  border-bottom: 0;
+}
+
+.arrangement-row header {
+  grid-template-rows: auto auto 3px;
+  align-content: center;
+}
+
+.route-main small {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.instrument-glyph {
+  display: inline-grid;
+  width: 17px;
+  height: 17px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--track-color) 45%, transparent);
+  border-radius: 5px;
+  color: var(--track-color);
+  font-size: 11px;
+}
+
+.clip {
+  top: 7px;
+  bottom: 7px;
+  overflow: hidden;
+  color: #dbe7ee;
+  border-color: color-mix(in srgb, var(--track-color) 58%, #263340);
+  background: color-mix(in srgb, var(--track-color) 19%, #0b1219);
+  box-shadow: none;
+}
+
+.clip > span {
+  position: relative;
+  z-index: 2;
+}
+
+.clip em {
+  position: absolute;
+  z-index: 1;
+  top: 23px;
+  right: 0;
+  bottom: 5px;
+  left: 0;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.clip em b {
+  min-width: 1px;
+  background: color-mix(in srgb, var(--track-color) 78%, #dbe7ee);
+}
+
+.editor-panel {
+  display: none;
+}
+
+.center-workspace.editor-open {
+  grid-template-rows: minmax(260px, 1fr) minmax(220px, 38vh);
+  gap: 6px;
+}
+
+.center-workspace.editor-open .editor-panel {
+  display: grid;
+  grid-template-rows: 42px minmax(0, 1fr);
+}
+
+#close-editor {
+  min-width: 30px;
+  color: #ffb5b5;
+}
+
+.copilot-collapsed.daw-shell {
+  grid-template:
+    "menu" 36px
+    "ctrl" 50px
+    "center" minmax(0, 1fr) / minmax(760px, 1fr);
+}
+
+/* Data-driven arrangement timeline. Track headers stay fixed while musical time scrolls. */
+.arrangement-panel,
+.timeline-ruler,
+.arrangement-row,
+.arrangement-row header,
+.clip,
+.instrument-glyph {
+  border: 0;
+}
+
+.timeline-viewport {
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.bar-scale {
+  position: relative;
+  display: block;
+  height: 100%;
+  background:
+    linear-gradient(90deg, rgba(151, 178, 199, 0.055) 1px, transparent 1px) 0 0 / var(--beat-width) 100%,
+    linear-gradient(90deg, rgba(112, 225, 194, 0.14) 1px, transparent 1px) 0 0 / var(--bar-width) 100%,
+    #0b1219;
+}
+
+.bar-scale span {
+  position: absolute;
+  bottom: 0;
+  padding: 0 7px 6px;
+  transform: translateX(1px);
+}
+
+.arrangement-grid {
+  overflow: auto;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+}
+
+.arrangement-row {
+  grid-template-columns: var(--track-head) var(--timeline-width);
+  width: calc(var(--track-head) + var(--timeline-width));
+  background: #0b1219;
+}
+
+.arrangement-row header {
+  position: sticky;
+  left: 0;
+  z-index: 3;
+}
+
+.clip-lane,
+.arrangement-row:nth-child(even) .clip-lane {
+  background:
+    linear-gradient(90deg, rgba(151, 178, 199, 0.065) 1px, transparent 1px) 0 0 / var(--beat-width) 100%,
+    linear-gradient(90deg, rgba(112, 225, 194, 0.2) 1px, transparent 1px) 0 0 / var(--bar-width) 100%,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.012) 50%, transparent 50%) 0 0 / calc(var(--bar-width) * 2) 100%,
+    #0b1219;
+}
+
+.lane-beat-grid {
+  background:
+    linear-gradient(90deg, rgba(151, 178, 199, 0.055) 1px, transparent 1px) 0 0 / var(--beat-width) 100%,
+    linear-gradient(90deg, rgba(112, 225, 194, 0.18) 1px, transparent 1px) 0 0 / var(--bar-width) 100%;
+}
+
+.arrangement-row.selected header {
+  background-color: color-mix(in srgb, var(--track-color) 9%, #0b1219);
+}
+
+.arrangement-row.selected header {
+  box-shadow: inset 3px 0 0 var(--track-color);
+}
+
+.arrangement-row.active:not(.selected) header {
+  background: #111922;
+  box-shadow: none;
+}
+
+.arrangement-row.active:not(.selected) .clip-lane {
+  box-shadow: none;
+}
+
+.arrangement-playhead {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  pointer-events: none;
+  background: #ff6b5f;
+  box-shadow: 0 0 0 1px rgba(255, 107, 95, 0.12);
+}
+
+.arrangement-range-selection {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+  background: rgba(89, 177, 255, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(116, 195, 255, 0.5);
+}
+
+.track-browser-title button {
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  color: #d8e5ed;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.track-setup {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 24px;
+  gap: 5px;
+  margin-top: 6px;
+}
+
+.track-instrument {
+  min-width: 0;
+  height: 24px;
+  border: 0;
+  border-radius: 5px;
+  color: #aebbc5;
+  background: #0b1219;
+  font-size: 10px;
+}
+
+.track-delete {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  color: #9aa9b5;
+  background: transparent;
+}
+
+.track-delete:hover {
+  color: #ff8c84;
+  background: rgba(255, 107, 95, 0.1);
+}
+
+.track-item.selected {
+  background: color-mix(in srgb, var(--track-color, #5eb7ff) 8%, #0e151d);
+}
+
+.track-mix {
+  display: grid;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.track-mix label {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: center;
+  gap: 5px;
+  color: #7f909d;
+  font-size: 9px;
+}
+
+.track-mix input {
+  width: 100%;
+  height: 12px;
+  accent-color: var(--track-color, #5eb7ff);
+}
+
+.arrange-track-controls button {
+  display: grid;
+  min-width: 22px;
+  height: 22px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  color: #82909b;
+  background: rgba(255, 255, 255, 0.045);
+  font-size: 10px;
+}
+
+.arrange-track-controls button.active {
+  color: #07100c;
+  background: var(--track-color);
+}
+
+.clip {
+  border: 0;
+  border-radius: 5px;
+}
+
+.clip:hover,
+.clip.selected {
+  border: 0;
+  filter: brightness(1.18);
+  box-shadow: none;
+}

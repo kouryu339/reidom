@@ -1,0 +1,104 @@
+{
+  "schema": "reidom-snapshot-bundle/v2",
+  "snapshot_id": "demo-song:3",
+  "project_id": "demo-song",
+  "source_revision": 3,
+  "source": {
+    "owner": "project-engine",
+    "implementation": "fixture"
+  },
+  "project_snapshot": {
+    "schema": "reidom-project-snapshot/v2",
+    "project_id": "demo-song",
+    "name": "Demo Song",
+    "source_revision": 3,
+    "dirty": false,
+    "tempo_map": [
+      {
+        "start_beats": 0,
+        "bpm": 120
+      }
+    ],
+    "time_signatures": [
+      {
+        "start_beats": 0,
+        "numerator": 4,
+        "denominator": 4
+      }
+    ],
+    "key_signature": "C major",
+    "transport": {
+      "position": "001.1.1",
+      "playing": false
+    },
+    "tracks": [
+      {
+        "track_id": "track:piano",
+        "name": "Piano",
+        "type": "midi"
+      }
+    ],
+    "clips": [
+      {
+        "clip_id": "clip:piano:1",
+        "track_id": "track:piano",
+        "notes": []
+      }
+    ],
+    "sections": [],
+    "markers": [],
+    "selection": {
+      "schema": "reidom-midi-selection/v1",
+      "selection_id": "sel-demo-001",
+      "project_id": "demo-song",
+      "revision": 3,
+      "tracks": [],
+      "selected_note_ids": [],
+      "selected_clip_ids": [
+        "clip:piano:1"
+      ]
+    },
+    "history": {
+      "undo_available": true,
+      "redo_available": false,
+      "undo_depth": 2,
+      "redo_depth": 0
+    }
+  },
+  "ui_snapshot": {
+    "schema": "reidom-ui-snapshot/v2",
+    "project_id": "demo-song",
+    "source_revision": 3,
+    "project": {
+      "schema": "reidom-project/v1",
+      "project_id": "demo-song",
+      "name": "Demo Song",
+      "revision": 3,
+      "tracks": [],
+      "clips": []
+    },
+    "selection": {
+      "schema": "reidom-midi-selection/v1",
+      "selection_id": "sel-demo-001",
+      "project_id": "demo-song",
+      "revision": 3,
+      "tracks": [],
+      "selected_note_ids": [],
+      "selected_clip_ids": [
+        "clip:piano:1"
+      ]
+    },
+    "history": {
+      "undo_available": true,
+      "redo_available": false,
+      "undo_depth": 2,
+      "redo_depth": 0
+    },
+    "capabilities": {
+      "read_midi_selection": true,
+      "midi_command_tools": true,
+      "command_log": true,
+      "undo_redo": true
+    }
+  }
+}

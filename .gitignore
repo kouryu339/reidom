@@ -1,0 +1,55 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Frontend / Tauri build products
+node_modules/
+dist/
+target/
+apps/studio-web/node_modules/
+apps/studio-web/dist/
+apps/studio-web/src-tauri/target/
+build/
+apps/studio-web/src-tauri/binaries/*.exe
+
+# Local runtime state and secrets
+data/*
+!data/.gitkeep
+config/llm-providers.json
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.log
+*.sqlite
+*.sqlite3
+*.db
+*.bak
+*.tmp
+/secrets/
+/private/
+/logs/
+/conversations/
+/projects/
+apps/studio-web/src-tauri/gen/
+
+# Native/runtime bundles are supplied by ai-framework release artifacts.
+bin/
+lib/
+
+# JUCE is fetched at a pinned revision by scripts/setup-juce.ps1.
+# Never accidentally add the nested checkout as an incomplete gitlink.
+/third_party/JUCE/
+
+# This dependency ships compiled JS, not a Reidom build product.
+!/apps/studio-web/vendor/orbit-runtime/conversation-element/dist/
+!/apps/studio-web/vendor/orbit-runtime/conversation-element/dist/**

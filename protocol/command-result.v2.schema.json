@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reidom.local/protocol/command-result.v2.schema.json",
+  "title": "Reidom Domain Command Result v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "command_id",
+    "accepted",
+    "duplicate",
+    "before_revision",
+    "revision",
+    "affected_ids",
+    "summary"
+  ],
+  "properties": {
+    "schema": { "const": "reidom-command-result/v2" },
+    "command_id": { "type": "string", "minLength": 1 },
+    "accepted": { "type": "boolean" },
+    "duplicate": { "type": "boolean" },
+    "before_revision": { "type": "integer", "minimum": 0 },
+    "revision": { "type": "integer", "minimum": 0 },
+    "affected_ids": {
+      "type": "array",
+      "maxItems": 4096,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "summary": { "type": "string", "maxLength": 512 },
+    "diff": { "type": "object" },
+    "undo_group_id": { "type": ["string", "null"] },
+    "error": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["code", "message", "retryable"],
+      "properties": {
+        "code": {
+          "enum": [
+            "stale_revision",
+            "unknown_target",
+            "invalid_range",
+            "permission_denied",
+            "plugin_unavailable",
+            "engine_busy",
+            "unsupported_operation",
+            "internal_error"
+          ]
+        },
+        "message": { "type": "string", "maxLength": 512 },
+        "retryable": { "type": "boolean" },
+        "current_revision": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "reidom-engine-event/v2",
+  "event_id": "event-demo-4",
+  "project_id": "demo-song",
+  "from_revision": 3,
+  "revision": 4,
+  "type": "project.committed",
+  "command_id": "cmd-demo-move-1",
+  "payload": {
+    "affected_ids": ["note:1"]
+  },
+  "snapshot_checksum": "sha256:demo"
+}

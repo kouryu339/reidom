@@ -1,0 +1,20 @@
+{
+  "schema": "reidom-engine-registration/v1",
+  "engine": {
+    "id": "reidom-juce",
+    "name": "Reidom Engine",
+    "implementation": "JUCE 9",
+    "endpoint": "127.0.0.1:47120",
+    "project_owner": true,
+    "capabilities": {
+      "midi_import_export": true,
+      "midi_editing": true,
+      "arrangement_generation": true,
+      "transport": true,
+      "undo_redo": true,
+      "command_log": true,
+      "audio_device": true
+    }
+  },
+  "external_daw_adapters": []
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Reidom Studio",
+  "version": "0.1.0",
+  "identifier": "ai.reidom.console",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run desktop:prepare && npm run build",
+    "devUrl": "http://127.0.0.1:5173",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Reidom Studio",
+        "width": 1440,
+        "height": 920,
+        "minWidth": 1180,
+        "minHeight": 760,
+        "resizable": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'",
+      "capabilities": ["default"]
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": ["icons/icon.ico"],
+    "externalBin": ["binaries/reidom-engine", "binaries/reidom-midi-tools"],
+    "resources": {
+      "../../../bin/agent_runtime.dll": "orbit/agent_runtime.dll",
+      "../../../bin/orbit-runtime-release.json": "orbit/release.json",
+      "../../../config/resources.json": "config/resources.json",
+      "../../../config/agent-cluster.json": "config/agent-cluster.json",
+      "../../../config/llm-providers.example.json": "config/llm-providers.example.json",
+      "../../../skills/": "skills/"
+    }
+  }
+}

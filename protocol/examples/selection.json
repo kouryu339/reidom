@@ -1,0 +1,30 @@
+{
+  "schema": "reidom-midi-selection/v1",
+  "selection_id": "sel-demo-001",
+  "project_id": "demo-song",
+  "revision": 3,
+  "range": { "start_beats": 0, "duration_beats": 4 },
+  "tempo": 120,
+  "time_signature": { "numerator": 4, "denominator": 4 },
+  "musical_hint": { "key": "C major", "style": "pop", "section": "verse" },
+  "tracks": [
+    {
+      "track_id": "track:piano",
+      "name": "Piano",
+      "role": "melody",
+      "instrument": "Acoustic Grand Piano",
+      "notes": [
+        {
+          "note_id": "note:1",
+          "pitch": 60,
+          "channel": 0,
+          "start_beats": 0,
+          "duration_beats": 1,
+          "velocity": 80,
+          "muted": false
+        }
+      ]
+    }
+  ]
+}
+

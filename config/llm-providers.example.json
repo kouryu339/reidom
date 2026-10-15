@@ -1,0 +1,23 @@
+{
+  "schema": "agent-runtime-llm-registration/v1",
+  "id": "reidom-llm",
+  "providers": [
+    {
+      "id": 1,
+      "name": "OpenAI-compatible provider",
+      "type": "openai",
+      "api_key": "${LLM_API_KEY}",
+      "base_url": "${LLM_BASE_URL}",
+      "api_paradigm": "openai_chat_completions",
+      "enabled_models": [
+        {
+          "uid": 1001,
+          "model_id": "${LLM_MODEL_ID}",
+          "max_context_tokens": 128000
+        }
+      ]
+    }
+  ],
+  "current_model_uid": 1001
+}
+

@@ -1,0 +1,40 @@
+{
+  "schema": "agent-runtime-resource-registration/v1",
+  "id": "reidom-resources",
+  "skills": {
+    "root_dir": "../skills",
+    "builtin_system": false
+  },
+  "data": {
+    "data_dir": "../data/runtime",
+    "logs_dir": "../data/runtime/logs",
+    "conversation_logs": {
+      "retention_days": 30,
+      "max_files_per_cluster": 1000,
+      "max_file_bytes": 10485760
+    }
+  },
+  "agents": {
+    "profiles": [
+      {
+        "id": "reidom.arranger",
+        "name": "Reidom Arranger",
+        "role": "music_arranger",
+        "features": [],
+        "toolProtocol": "native_fc",
+        "model_uid": 1001,
+        "systemPromptConstraints": {
+          "frontendWidgetsEnabled": true
+        }
+      }
+    ]
+  },
+  "rpc_endpoints": [
+    {
+      "id": "reidom-midi-tools",
+      "protocol": "grpc",
+      "endpoint": "127.0.0.1:50120",
+      "timeout_ms": 30000
+    }
+  ]
+}

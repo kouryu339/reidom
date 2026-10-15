@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reidom.local/protocol/engine-event.v2.schema.json",
+  "title": "Reidom Engine Event v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "event_id",
+    "project_id",
+    "from_revision",
+    "revision",
+    "type",
+    "command_id",
+    "payload"
+  ],
+  "properties": {
+    "schema": { "const": "reidom-engine-event/v2" },
+    "event_id": { "type": "string", "minLength": 1 },
+    "project_id": { "type": "string", "minLength": 1 },
+    "from_revision": { "type": "integer", "minimum": 0 },
+    "revision": { "type": "integer", "minimum": 0 },
+    "type": {
+      "enum": [
+        "project.committed",
+        "project.resynced",
+        "project.saved",
+        "engine.health_changed"
+      ]
+    },
+    "command_id": { "type": ["string", "null"] },
+    "payload": { "type": "object" },
+    "snapshot_checksum": { "type": ["string", "null"] }
+  }
+}

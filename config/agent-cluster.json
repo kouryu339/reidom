@@ -1,0 +1,14 @@
+{
+  "schema": "agent-runtime-agent-cluster-registration/v1",
+  "id": "reidom-music",
+  "description": "Reidom single-agent MIDI arranging cluster.",
+  "focus_agent_id": "reidom-arranger-main",
+  "agents": [
+    {
+      "id": "reidom-arranger-main",
+      "profile": "reidom.arranger"
+    }
+  ],
+  "max_thinking_rounds": 0
+}
+

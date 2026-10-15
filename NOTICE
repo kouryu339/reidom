@@ -1,0 +1,19 @@
+Reidom
+Copyright 2026 kouryu339 and contributors
+
+Reidom-authored code is licensed under the Apache License, Version 2.0.
+This notice does not re-license third-party components.
+
+Orbit Runtime Lit conversation element
+Upstream: https://github.com/kouryu339/orbit-runtime
+License: Apache-2.0
+See apps/studio-web/vendor/orbit-runtime/conversation-element/LICENSE and UPSTREAM.md.
+
+JUCE Framework
+Upstream: https://github.com/juce-framework/JUCE
+License: AGPLv3 or the JUCE commercial license, not Apache-2.0.
+JUCE is downloaded separately at the pinned revision; retain its own notices.
+
+Other dependencies retain their own licenses. Package lockfiles identify the
+resolved npm, Rust and Python dependencies. This source notice is not a complete
+binary distribution notice; review all applicable notices before distributing builds.

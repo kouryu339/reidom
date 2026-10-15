@@ -1,0 +1,236 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reidom.local/protocol/snapshot-bundle.v2.schema.json",
+  "title": "Reidom Unified Snapshot Bundle v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "snapshot_id",
+    "project_id",
+    "source_revision",
+    "source",
+    "project_snapshot",
+    "ui_snapshot"
+  ],
+  "properties": {
+    "schema": {
+      "const": "reidom-snapshot-bundle/v2"
+    },
+    "snapshot_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner",
+        "implementation"
+      ],
+      "properties": {
+        "owner": {
+          "const": "project-engine"
+        },
+        "implementation": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "project_snapshot": {
+      "$ref": "#/$defs/projectSnapshot"
+    },
+    "ui_snapshot": {
+      "$ref": "#/$defs/uiSnapshot"
+    }
+  },
+  "$defs": {
+    "selection": {
+      "type": "object",
+      "required": [
+        "schema",
+        "selection_id",
+        "project_id",
+        "revision",
+        "tracks",
+        "selected_note_ids",
+        "selected_clip_ids"
+      ],
+      "properties": {
+        "schema": {
+          "const": "reidom-midi-selection/v1"
+        },
+        "selection_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "project_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tracks": {
+          "type": "array"
+        },
+        "selected_note_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "selected_clip_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "history": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "undo_available",
+        "redo_available",
+        "undo_depth",
+        "redo_depth"
+      ],
+      "properties": {
+        "undo_available": {
+          "type": "boolean"
+        },
+        "redo_available": {
+          "type": "boolean"
+        },
+        "undo_depth": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "redo_depth": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "projectSnapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "project_id",
+        "name",
+        "source_revision",
+        "dirty",
+        "tempo_map",
+        "time_signatures",
+        "key_signature",
+        "transport",
+        "tracks",
+        "clips",
+        "sections",
+        "markers",
+        "selection",
+        "history"
+      ],
+      "properties": {
+        "schema": {
+          "const": "reidom-project-snapshot/v2"
+        },
+        "project_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string"
+        },
+        "source_revision": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dirty": {
+          "type": "boolean"
+        },
+        "tempo_map": {
+          "type": "array"
+        },
+        "time_signatures": {
+          "type": "array"
+        },
+        "key_signature": {
+          "type": "string"
+        },
+        "transport": {
+          "type": "object"
+        },
+        "tracks": {
+          "type": "array"
+        },
+        "clips": {
+          "type": "array"
+        },
+        "sections": {
+          "type": "array"
+        },
+        "markers": {
+          "type": "array"
+        },
+        "selection": {
+          "$ref": "#/$defs/selection"
+        },
+        "history": {
+          "$ref": "#/$defs/history"
+        }
+      }
+    },
+    "uiSnapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "project_id",
+        "source_revision",
+        "project",
+        "selection",
+        "history",
+        "capabilities"
+      ],
+      "properties": {
+        "schema": {
+          "const": "reidom-ui-snapshot/v2"
+        },
+        "project_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_revision": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "project": {
+          "type": "object"
+        },
+        "selection": {
+          "$ref": "#/$defs/selection"
+        },
+        "history": {
+          "$ref": "#/$defs/history"
+        },
+        "capabilities": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

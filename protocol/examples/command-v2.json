@@ -1,0 +1,16 @@
+{
+  "schema": "reidom-command/v2",
+  "command_id": "cmd-demo-move-1",
+  "idempotency_key": "idem-demo-move-1",
+  "project_id": "demo-song",
+  "base_revision": 3,
+  "source": "ai",
+  "type": "notes.move",
+  "selection_ref": "sel-demo-001",
+  "payload": {
+    "note_ids": ["note:1"],
+    "delta_beats": 0.125
+  },
+  "reason": "Move the pickup slightly later.",
+  "preview": false
+}

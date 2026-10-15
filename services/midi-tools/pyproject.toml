@@ -1,0 +1,24 @@
+[project]
+name = "reidom-midi-tools"
+version = "0.1.0"
+description = "Agent Tool surface for Reidom MIDI context, reversible commands, and command history."
+requires-python = ">=3.11"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "grpcio>=1.63",
+    "grpcio-tools>=1.63",
+    "protobuf>=5",
+    "pytest>=8.4,<9",
+]
+
+[project.scripts]
+reidom-midi-tools = "reidom_midi_tools.project_tools:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/reidom_midi_tools"]

@@ -1,0 +1,25 @@
+.daw-shell, .daw-shell.browser-collapsed, .daw-shell.copilot-collapsed, .daw-shell.browser-collapsed.copilot-collapsed {
+  grid-template-rows: 64px 48px 60px minmax(0, 1fr);
+}
+.project-library { grid-column: 2; grid-row: 2; position: relative; min-width: 0; display: flex; align-items: center; gap: 16px; padding: 0 20px; border-bottom: 1px solid #2a3631; background: #151d19; z-index: 40; }
+.control-bar { grid-row: 3; }
+.center-workspace, .center-workspace[data-workspace="editor"] { grid-row: 4; }
+.right-zone { grid-row: 2 / 5; }
+.project-switcher { display: flex; align-items: center; gap: 12px; max-width: 70%; background: transparent; border: 0; padding: 6px 0; }
+.project-current-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 15px; }
+.project-switcher svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; flex: none; }
+.project-save-state { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.project-save-state[data-failed="true"], .project-library-error { color: #ffb6ad; }
+.project-library-panel { position: absolute; top: 44px; left: 16px; width: min(440px, calc(100% - 32px)); padding: 20px; background: #18221d; border: 1px solid #46574c; border-radius: 8px; }
+.project-library-panel[hidden] { display: none; }
+.project-library-panel header, .project-library-panel footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.project-library-panel h2 { margin: 0; font-size: 17px; }
+.project-library-panel input { width: 100%; margin: 16px 0 8px; padding: 10px; }
+.project-library-list { max-height: min(340px, 45vh); overflow-y: auto; margin: 0 0 16px; }
+.project-library-item { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; width: 100%; padding: 12px; border: 0; border-bottom: 1px solid #2a3830; background: transparent; text-align: left; }
+.project-library-item strong { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
+.project-library-item span, .project-library-panel small { color: var(--muted); font-size: 12px; }
+.project-library-item[aria-current="true"] { background: #26382e; opacity: 1; }
+.project-library-item:hover:not(:disabled) { background: #304437; }
+.project-library-panel small { display: block; margin-top: 12px; line-height: 1.5; }
+#workspace-title { visibility: hidden; }

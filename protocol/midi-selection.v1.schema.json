@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reidom.local/protocol/midi-selection.v1.schema.json",
+  "title": "Reidom MIDI Selection v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "selection_id", "project_id", "revision", "tracks"],
+  "properties": {
+    "schema": { "const": "reidom-midi-selection/v1" },
+    "selection_id": { "type": "string", "minLength": 1 },
+    "project_id": { "type": "string", "minLength": 1 },
+    "revision": { "type": "integer", "minimum": 0 },
+    "range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start_beats", "duration_beats"],
+      "properties": {
+        "start_beats": { "type": "number", "minimum": 0 },
+        "duration_beats": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "tempo": { "type": "number", "exclusiveMinimum": 0, "default": 120 },
+    "time_signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numerator", "denominator"],
+      "properties": {
+        "numerator": { "type": "integer", "minimum": 1 },
+        "denominator": { "type": "integer", "enum": [1, 2, 4, 8, 16, 32] }
+      }
+    },
+    "musical_hint": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "key": { "type": "string" },
+        "style": { "type": "string" },
+        "section": { "type": "string" }
+      }
+    },
+    "tracks": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/track" }
+    }
+  },
+  "$defs": {
+    "track": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["track_id", "name", "notes"],
+      "properties": {
+        "track_id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "instrument": { "type": "string" },
+        "notes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/note" }
+        }
+      }
+    },
+    "note": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["note_id", "pitch", "channel", "start_beats", "duration_beats", "velocity"],
+      "properties": {
+        "note_id": { "type": "string", "minLength": 1 },
+        "pitch": { "type": "integer", "minimum": 0, "maximum": 127 },
+        "channel": { "type": "integer", "minimum": 0, "maximum": 15 },
+        "start_beats": { "type": "number", "minimum": 0 },
+        "duration_beats": { "type": "number", "exclusiveMinimum": 0 },
+        "velocity": { "type": "integer", "minimum": 1, "maximum": 127 },
+        "muted": { "type": "boolean", "default": false }
+      }
+    }
+  }
+}
+

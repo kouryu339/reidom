@@ -1,0 +1,710 @@
+/* Focused arrangement command rail and contextual detail panels. */
+.center-workspace,
+.center-workspace[data-workspace="editor"] {
+  grid-template-rows: 46px minmax(0, 1fr);
+  gap: 6px;
+}
+
+.context-bar {
+  display: grid;
+  grid-template-columns: minmax(170px, 0.7fr) minmax(0, 2fr) auto;
+  align-items: center;
+  min-width: 0;
+  min-height: 0;
+  padding: 5px 8px 5px 12px;
+  border: 1px solid rgba(147, 178, 197, 0.1);
+  border-radius: 7px;
+  background:
+    linear-gradient(90deg, rgba(112, 225, 194, 0.075), transparent 28%),
+    #0c141b;
+  box-shadow: inset 3px 0 0 rgba(112, 225, 194, 0.72);
+}
+
+.context-copy {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: 8px;
+  min-width: 0;
+}
+
+.context-copy > span {
+  grid-row: span 2;
+  align-self: center;
+  color: #70e1c2;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.context-copy strong,
+.context-copy small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.context-copy strong {
+  color: #e8f0f4;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.context-copy small {
+  color: #71838f;
+  font-size: 9px;
+  font-weight: 550;
+}
+
+.context-actions {
+  display: flex;
+  min-width: 0;
+  gap: 4px;
+  padding: 0 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.context-actions::-webkit-scrollbar {
+  display: none;
+}
+
+.context-action {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 5px;
+  min-height: 30px;
+  padding: 0 9px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #aebcc6;
+  background: rgba(255, 255, 255, 0.045);
+  font-family: inherit;
+  font-size: 10px;
+  transition: background 120ms ease, color 120ms ease, transform 120ms ease;
+}
+
+.context-action span {
+  min-width: 14px;
+  color: #72a4bd;
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 11px;
+  text-align: center;
+}
+
+.context-action strong {
+  font: inherit;
+  font-weight: 650;
+}
+
+.context-action:hover {
+  color: #eef6f8;
+  background: rgba(255, 255, 255, 0.085);
+  transform: translateY(-1px);
+}
+
+.context-action.primary {
+  color: #07130f;
+  background: #70e1c2;
+}
+
+.context-action.primary span {
+  color: inherit;
+}
+
+.context-action.danger:hover {
+  color: #ffb2aa;
+  background: rgba(255, 107, 95, 0.12);
+}
+
+.context-action:focus-visible,
+.detail-close:focus-visible,
+.effect-power:focus-visible,
+.track-state-toggles button:focus-visible {
+  outline: 2px solid #a8f1dd;
+  outline-offset: 2px;
+}
+
+.context-shortcuts {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  align-items: center;
+  gap: 4px;
+  padding-right: 4px;
+  color: #647682;
+  font-size: 8px;
+  font-weight: 550;
+  white-space: nowrap;
+}
+
+.context-shortcuts kbd {
+  padding: 2px 4px;
+  border: 1px solid #293945;
+  border-bottom-color: #17232d;
+  border-radius: 4px;
+  color: #93a5b1;
+  background: #111c24;
+  font: 8px "Cascadia Code", Consolas, monospace;
+}
+
+.center-workspace.editor-open,
+.center-workspace.effects-open,
+.center-workspace.clip-properties-open {
+  grid-template-rows: 46px minmax(240px, 1fr) minmax(240px, 38vh);
+  gap: 6px;
+}
+
+.track-effects-panel {
+  display: none;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid rgba(147, 178, 197, 0.12);
+  border-radius: 7px;
+  background:
+    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--detail-track-color) 9%, transparent), transparent 34%),
+    #091117;
+}
+
+.center-workspace.effects-open .track-effects-panel {
+  display: grid;
+  grid-template-rows: 42px minmax(0, 1fr);
+}
+
+.center-workspace.effects-open .editor-panel,
+.center-workspace.clip-properties-open .editor-panel {
+  display: none;
+}
+
+.detail-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+  padding: 0 8px 0 14px;
+  border-bottom: 1px solid rgba(147, 178, 197, 0.1);
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.detail-panel-title {
+  display: flex;
+  align-items: baseline;
+  min-width: 0;
+  gap: 9px;
+}
+
+.detail-panel-title strong {
+  overflow: hidden;
+  color: #e7eff3;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detail-panel-title small {
+  color: #71838e;
+  font-size: 9px;
+}
+
+.detail-kicker {
+  color: var(--detail-track-color);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+
+.detail-close,
+#close-clip-properties {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 6px;
+  color: #8fa0aa;
+  background: transparent;
+  font-size: 16px;
+}
+
+.detail-close:hover,
+#close-clip-properties:hover {
+  color: #ffafa7;
+  background: rgba(255, 107, 95, 0.1);
+}
+
+.track-effects-body {
+  display: grid;
+  grid-template-columns: 208px minmax(0, 1fr);
+  min-width: 0;
+  min-height: 0;
+}
+
+.track-strip {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+  padding: 12px;
+  border-right: 1px solid rgba(147, 178, 197, 0.09);
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.track-strip-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #bac7cf;
+}
+
+.track-color-swatch {
+  width: 22px;
+  height: 4px;
+  border-radius: 99px;
+  background: var(--detail-track-color);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--detail-track-color) 45%, transparent);
+}
+
+.detail-field {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: center;
+  gap: 7px;
+  color: #758894;
+  font-size: 9px;
+}
+
+.detail-field input,
+.detail-field select {
+  min-width: 0;
+  height: 27px;
+  padding: 0 7px;
+  border: 1px solid #22323d;
+  border-radius: 5px;
+  color: #cdd8de;
+  background: #0a141b;
+  font: 10px inherit;
+}
+
+.detail-field input:focus,
+.detail-field select:focus {
+  border-color: color-mix(in srgb, var(--detail-track-color) 66%, #22323d);
+  outline: none;
+}
+
+.track-state-toggles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.track-state-toggles button {
+  height: 26px;
+  padding: 0;
+  border: 1px solid #263741;
+  border-radius: 5px;
+  color: #81939f;
+  background: #0b161e;
+  font: 10px "Cascadia Code", Consolas, monospace;
+}
+
+.track-state-toggles button.active {
+  color: #06110d;
+  border-color: var(--detail-track-color);
+  background: var(--detail-track-color);
+}
+
+.builtin-effects-rack {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(184px, 0.65fr);
+  align-items: stretch;
+  min-width: 0;
+  min-height: 0;
+  gap: 6px;
+  padding: 8px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-color: #2a3b46 #0a1218;
+  scrollbar-width: thin;
+}
+
+.effect-module {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  min-width: 0;
+  padding: 10px;
+  overflow: hidden;
+  border: 1px solid #1c2a33;
+  border-radius: 7px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 36%),
+    #0b151c;
+}
+
+.effect-module::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: #273842;
+  content: "";
+}
+
+.effect-module.enabled {
+  border-color: color-mix(in srgb, var(--detail-track-color) 38%, #1c2a33);
+}
+
+.effect-module.enabled::before {
+  background: var(--detail-track-color);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--detail-track-color) 55%, transparent);
+}
+
+.effect-module-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.effect-identity {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 7px;
+  color: #d6e0e5;
+  font-size: 10px;
+}
+
+.effect-code {
+  display: grid;
+  min-width: 34px;
+  height: 18px;
+  padding: 0 4px;
+  place-items: center;
+  border-radius: 3px;
+  color: #91a6b2;
+  background: #16232c;
+  font: 8px "Cascadia Code", Consolas, monospace;
+  letter-spacing: 0.05em;
+}
+
+.effect-module.enabled .effect-code {
+  color: #07110e;
+  background: var(--detail-track-color);
+}
+
+.effect-power {
+  min-width: 30px;
+  height: 22px;
+  padding: 0 6px;
+  border: 1px solid #273843;
+  border-radius: 99px;
+  color: #6e818d;
+  background: transparent;
+  font-size: 9px;
+}
+
+.effect-power.active {
+  color: #bdf4e5;
+  border-color: color-mix(in srgb, var(--detail-track-color) 62%, #273843);
+  background: color-mix(in srgb, var(--detail-track-color) 12%, transparent);
+}
+
+.effect-module > p {
+  min-height: 24px;
+  margin: 7px 0 5px;
+  color: #657984;
+  font-size: 8px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.effect-controls {
+  display: grid;
+  align-content: start;
+  gap: 7px;
+}
+
+.rack-range {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.rack-range-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  color: #7f929d;
+  font-size: 8px;
+}
+
+.rack-range output {
+  color: #b4c2c9;
+  font: 8px "Cascadia Code", Consolas, monospace;
+}
+
+.rack-range input[type="range"] {
+  width: 100%;
+  height: 13px;
+  margin: 0;
+  accent-color: var(--detail-track-color);
+}
+
+.rack-range input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--detail-track-color) 38%, #22323b), #22323b);
+}
+
+.rack-range input[type="range"]::-webkit-slider-thumb {
+  width: 10px;
+  height: 10px;
+  margin-top: -3.5px;
+  border: 2px solid #0a1319;
+  border-radius: 50%;
+  background: #c6d4da;
+  -webkit-appearance: none;
+}
+
+.track-effects-empty {
+  display: grid;
+  place-content: center;
+  gap: 5px;
+  color: #73858f;
+  text-align: center;
+}
+
+.track-effects-empty strong {
+  color: #c5d1d7;
+  font-size: 12px;
+}
+
+.track-fx-button {
+  width: auto !important;
+  min-width: 30px !important;
+  padding: 0 6px !important;
+  font-size: 8px !important;
+  letter-spacing: 0.04em;
+}
+
+.track-fx-button.active {
+  color: #07110d !important;
+  background: #70e1c2 !important;
+}
+
+.center-workspace.clip-properties-open .bottom-dock {
+  display: grid !important;
+  grid-template-columns: minmax(360px, 620px);
+  align-content: stretch;
+  justify-content: start;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  overflow: auto;
+  border: 1px solid rgba(147, 178, 197, 0.12);
+  border-radius: 7px;
+  background: #091117;
+}
+
+.center-workspace.clip-properties-open .selection-panel {
+  display: none;
+}
+
+.center-workspace.clip-properties-open .clip-inspector {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 0;
+  background: transparent;
+}
+
+.clip-properties-open .clip-inspector .inspector-heading {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  justify-content: start;
+  gap: 9px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(147, 178, 197, 0.1);
+}
+
+.clip-properties-open .clip-inspector .inspector-heading span {
+  color: #70e1c2;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+
+.clip-properties-open .clip-inspector .inspector-heading strong {
+  color: #dce7eb;
+  font-size: 12px;
+}
+
+.clip-properties-open #close-clip-properties {
+  grid-column: 4;
+}
+
+.clip-properties-open .clip-inspector form {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) 120px 120px;
+  align-items: end;
+  gap: 9px;
+}
+
+.clip-properties-open .clip-inspector form[hidden] {
+  display: none;
+}
+
+.clip-properties-open .clip-inspector form label {
+  display: grid;
+  gap: 5px;
+  color: #71848f;
+  font-size: 9px;
+}
+
+.clip-properties-open .clip-inspector form input {
+  height: 30px;
+  border: 1px solid #24343e;
+  border-radius: 5px;
+  color: #d3dfe4;
+  background: #0b161d;
+}
+
+.clip-properties-open .clip-inspector-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 5px;
+}
+
+.clip-properties-open .clip-inspector-actions button {
+  min-height: 28px;
+  border: 0;
+  border-radius: 5px;
+  color: #aebdc5;
+  background: #15212a;
+  font-size: 9px;
+}
+
+.clip-properties-open .clip-inspector-actions button[type="submit"] {
+  color: #06110d;
+  background: #70e1c2;
+}
+
+.clip-properties-open .clip-inspector-actions .danger {
+  color: #ffada5;
+  background: rgba(255, 107, 95, 0.1);
+}
+
+@media (max-width: 1220px) {
+  .context-shortcuts {
+    display: none;
+  }
+
+  .context-bar {
+    grid-template-columns: minmax(150px, 0.65fr) minmax(0, 2fr);
+  }
+
+  .track-effects-body {
+    grid-template-columns: 184px minmax(0, 1fr);
+  }
+}
+
+.center-workspace.editor-open {
+  grid-template-rows: 46px minmax(220px, 1fr) minmax(300px, 46vh);
+}
+
+.piano-roll-hint {
+  display: block;
+  margin-top: 2px;
+  color: #718491;
+  font: 8px "Cascadia Code", Consolas, monospace;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* Stable, readable musical coordinates for the arrangement workspace. */
+.axis-corner {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  color: #78909e;
+  font: 600 9px "Cascadia Code", Consolas, monospace;
+  letter-spacing: 0.08em;
+}
+
+.bar-scale .ruler-tick {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  min-width: 20px;
+  padding: 7px 0 0 5px;
+  transform: none;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.bar-scale .ruler-tick::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  content: "";
+}
+
+.bar-scale .bar-tick {
+  color: #c7f77a;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.bar-scale .bar-tick::before {
+  height: 100%;
+  background: rgba(184, 245, 71, 0.42);
+}
+
+.bar-scale .beat-tick {
+  color: #718694;
+  font-size: 8px;
+}
+
+.bar-scale .beat-tick::before {
+  height: 42%;
+  background: rgba(190, 208, 219, 0.2);
+}
+
+.context-action:hover {
+  transform: none;
+  border-color: rgba(154, 190, 209, 0.16);
+}
+
+.context-action kbd {
+  margin-left: 2px;
+  padding: 1px 4px;
+  border: 1px solid rgba(151, 178, 197, 0.2);
+  border-radius: 4px;
+  color: #8296a3;
+  background: rgba(4, 9, 13, 0.36);
+  font: 7px "Cascadia Code", Consolas, monospace;
+}
+
+.context-action.primary kbd {
+  border-color: rgba(4, 18, 13, 0.22);
+  color: rgba(4, 18, 13, 0.68);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.arrangement-row .clip-lane {
+  box-shadow: none;
+}
+
+@media (max-width: 1180px) {
+  .context-action kbd {
+    display: none;
+  }
+}
+

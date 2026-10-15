@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#090f15" />
+    <title>Reidom Studio</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#center-workspace">跳到编辑区</a>
+    <main class="daw-shell" id="app-shell">
+      <header class="menu-bar">
+        <section class="brand-cluster">
+          <span class="brand-mark" aria-hidden="true">R</span>
+          <div class="brand-copy">
+            <strong>Reidom</strong>
+            <span>音乐工作站</span>
+          </div>
+        </section>
+        <nav class="menu-items" aria-label="工程操作">
+          <details id="project-menu"><summary>作品菜单</summary><div class="project-menu-body"></div></details>
+          <button id="new-project">新建</button>
+          <button id="open-project">打开</button>
+          <button id="save-project">保存</button>
+        </nav>
+        <span id="workspace-title">新的作品</span>
+        <span id="host-pill" class="host-pill" aria-live="polite">正在启动音频引擎</span>
+        <button id="edit-mode" type="button" aria-pressed="false" disabled>手动编辑</button>
+      </header>
+
+      <section class="control-bar">
+        <div class="tool-cluster">
+          <button id="toggle-browser" class="icon-button panel-toggle" title="显示或隐藏工程栏" aria-label="显示或隐藏工程栏">☰</button>
+          <span class="toolbar-divider"></span>
+          <button id="undo-command" title="撤销" aria-label="撤销">↶</button>
+          <button id="redo-command" title="重做" aria-label="重做">↷</button>
+          <button id="import-midi">导入 MIDI</button>
+          <button id="mock-midi">示例</button>
+          <button id="export-midi">导出 MIDI</button>
+          <button id="export-wav">导出 WAV</button>
+          <button id="publish-selection" hidden>发布选择</button>
+        </div>
+
+        <section class="transport-cluster" aria-label="走带控制">
+          <button class="transport-button" data-transport="rewind" title="回到开头" aria-label="回到开头">⏮</button>
+          <button class="transport-button primary" data-transport="play" title="播放" aria-label="播放">▶</button>
+          <button class="transport-button record" data-transport="recording" title="录音" aria-label="录音">●</button>
+          <button class="transport-button toggle" data-transport="loop" title="循环" aria-label="切换循环">↻</button>
+          <button class="transport-button toggle" data-transport="metronome" title="节拍器" aria-label="切换节拍器">♩</button>
+          <div class="transport-readout">
+            <span>位置</span>
+            <strong id="bar-readout">001.1.1</strong>
+          </div>
+        </section>
+
+        <section class="project-controls">
+          <label>
+            速度
+            <input id="tempo-input" name="tempo" aria-label="工程速度" type="number" value="120" min="20" max="300" />
+          </label>
+          <button id="set-loop-range" title="将时间选择设为循环区间">循环区间</button>
+          <button id="open-device-settings" title="音频与 MIDI 设备">设备</button>
+          <label>
+            网格
+            <select id="grid-select">
+              <option value="0.25">1/16</option>
+              <option value="0.5">1/8</option>
+              <option value="1">1/4</option>
+            </select>
+          </label>
+          <span class="toolbar-divider"></span>
+          <button id="toggle-copilot" class="panel-toggle" title="显示或隐藏编曲助手" aria-label="显示或隐藏编曲助手">✦ 助手</button>
+        </section>
+      </section>
+
+      <aside class="left-zone">
+        <section class="inspector-panel">
+          <div class="zone-title">
+            <span>工程</span>
+            <strong id="project-title">未命名工程</strong>
+          </div>
+          <div class="stats-grid">
+            <article>
+              <span>轨道</span>
+              <strong id="track-count">0</strong>
+            </article>
+            <article>
+              <span>音符</span>
+              <strong id="note-count">0</strong>
+            </article>
+            <article>
+              <span>速度</span>
+              <strong id="tempo-value">120</strong>
+            </article>
+          </div>
+          <label class="drop-zone" id="drop-zone">
+            <input id="midi-file" type="file" accept=".mid,.midi,audio/midi" />
+            <span>拖入 MIDI 文件</span>
+            <strong>或点击选择文件</strong>
+          </label>
+          <input id="project-file" type="file" accept=".reidom,application/json" hidden />
+          <div class="inspector-rack" id="inspector-rack" hidden></div>
+        </section>
+
+        <section class="track-browser">
+          <div class="track-browser-title">
+            <span>轨道</span>
+            <button id="add-track" title="新建 MIDI 轨道" aria-label="新建 MIDI 轨道">＋</button>
+          </div>
+          <div class="media-browser">
+          </div>
+          <div id="track-list"></div>
+        </section>
+      </aside>
+
+      <section class="center-workspace" id="center-workspace" data-workspace="editor">
+        <div class="mode-strip"><span id="edit-mode-status" role="status">AI 创作 · 作品只读</span><span>滚动查看 · 空格试听</span></div>
+        <div id="song-empty" class="song-empty" hidden>
+          <h1>开始创作</h1>
+          <p>添加第一条轨道写下旋律，或导入已有的 MIDI。</p>
+          <div class="song-empty-actions">
+            <button id="empty-add-track" type="button">添加轨道</button>
+            <button id="empty-import-midi" type="button">导入 MIDI</button>
+          </div>
+          <p class="song-empty-help">需要灵感时，也可以随时与左侧 AI 助手交流。</p>
+          <input id="empty-midi-file" type="file" accept=".mid,.midi" hidden>
+        </div>
+        <section class="context-bar" id="context-bar" aria-label="当前选择操作">
+          <div class="context-copy">
+            <span>当前</span>
+            <strong data-context-title>编曲区</strong>
+            <small data-context-meta>先新建轨道或导入 MIDI</small>
+          </div>
+          <div class="context-actions" data-context-actions></div>
+          <div class="context-shortcuts" aria-label="常用快捷键">
+            <kbd>Space</kbd><span>播放</span>
+            <kbd>Ctrl D</kbd><span>复制</span>
+            <kbd>Del</kbd><span>删除</span>
+          </div>
+        </section>
+
+        <section class="arrangement-panel">
+          <div class="timeline-ruler" aria-hidden="true">
+            <span class="axis-corner">小节 . 拍</span>
+            <div class="timeline-viewport" id="timeline-viewport">
+              <div class="bar-scale" id="bar-scale"></div>
+            </div>
+          </div>
+          <div class="arrangement-grid" id="arrangement-grid"></div>
+        </section>
+
+        <section class="editor-panel">
+          <div class="lower-zone-tabs">
+            <div>
+              <span class="section-label">钢琴卷帘</span>
+              <strong class="active-track-label" id="active-track-label">未选择轨道</strong>
+              <small class="piano-roll-hint">&#27178;&#21521; &#23567;&#33410;.&#25293; &middot; &#32437;&#21521; &#38899;&#39640;</small>
+            </div>
+            <div class="editor-tools">
+              <button id="clear-note-selection" type="button" title="取消选中音符或片段（Esc），不关闭编辑器" disabled>取消选择</button>
+              <button data-view="zoom-out" title="缩小">−</button>
+              <button data-view="zoom-in" title="放大">＋</button>
+              <button data-view="fit">适合窗口</button>
+              <button data-edit="transpose-down">-12</button>
+              <button data-edit="transpose-up">+12</button>
+              <button data-edit="nudge-left" title="向左微移">←</button>
+              <button data-edit="nudge-right" title="向右微移">→</button>
+              <button data-edit="duplicate">复制</button>
+              <button data-edit="split">分割</button>
+              <button data-edit="quantize">量化</button>
+              <button data-edit="delete">删除</button>
+              <button id="close-editor" title="关闭钢琴卷帘">×</button>
+            </div>
+          </div>
+          <canvas id="piano-roll" width="1280" height="520" role="img" aria-label="钢琴卷帘音符编辑器"></canvas>
+        </section>
+
+        <section
+          class="track-effects-panel"
+          id="track-effects-panel"
+          aria-label="轨道声音与内置效果"
+        ></section>
+
+        <section class="bottom-dock">
+          <article class="selection-panel">
+            <div class="inspector-heading">
+              <span>当前选择</span>
+              <strong id="selection-summary">未选择音符</strong>
+            </div>
+            <div class="selection-details" id="selection-details"></div>
+            <div class="event-list" id="event-list"></div>
+            <pre id="selection-json" hidden>{}</pre>
+          </article>
+          <article class="clip-inspector" id="clip-inspector">
+            <div class="inspector-heading">
+              <span>片段</span>
+              <strong>基础属性</strong>
+              <button id="close-clip-properties" type="button" aria-label="关闭片段属性">×</button>
+            </div>
+            <p data-clip-empty>选择一个片段以编辑名称、位置和长度。</p>
+            <form data-clip-form hidden>
+              <label>名称<input name="clip-name" maxlength="80" autocomplete="off" /></label>
+              <label>起点<input name="clip-start" type="number" min="0" step="0.25" inputmode="decimal" /></label>
+              <label>长度<input name="clip-duration" type="number" min="0.25" step="0.25" inputmode="decimal" /></label>
+              <div class="clip-inspector-actions">
+                <button type="submit">保存属性</button>
+                <button type="button" data-clip-action="duplicate">复制</button>
+                <button type="button" data-clip-action="split">在播放头分割</button>
+                <button type="button" class="danger" data-clip-action="delete">删除</button>
+              </div>
+            </form>
+          </article>
+        </section>
+
+      </section>
+
+      <aside class="right-zone">
+        <agent-runtime-conversation
+          id="conversation"
+          locale="zh-CN"
+          theme="green"
+          density="compact"
+          color-scheme="dark"
+          disclaimer="AI 可能出错，重要修改可随时撤销。"
+        ><span slot="header" hidden></span></agent-runtime-conversation>
+
+      </aside>
+      <output id="global-status" class="global-status" aria-live="polite" hidden></output>
+    </main>
+
+    <dialog id="device-settings-dialog" class="settings-dialog">
+      <form method="dialog">
+        <header>
+          <div><span>设备设置</span><strong>音频与 MIDI</strong></div>
+          <button type="button" data-dialog-close aria-label="关闭设备设置">×</button>
+        </header>
+        <label>音频输出<select id="audio-output-device"></select></label>
+        <div class="settings-row">
+          <label>采样率<select id="audio-sample-rate"></select></label>
+          <label>缓冲区<select id="audio-buffer-size"></select></label>
+        </div>
+        <fieldset>
+          <legend>MIDI 输入</legend>
+          <div id="midi-input-list" class="midi-input-list"></div>
+        </fieldset>
+        <p id="device-diagnostic" class="device-diagnostic"></p>
+        <footer>
+          <button type="button" data-dialog-close>取消</button>
+          <button type="submit" class="primary-action">应用设备</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
